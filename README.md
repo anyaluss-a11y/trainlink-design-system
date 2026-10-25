@@ -4,7 +4,7 @@ A design system for the TrainLink marketplace, built from the TrainLink Figma fi
 
 - **Design tokens** — colors (primitives and semantic), sizing and typography, exported from Figma variables into `tokens/figma-export.json` and compiled to CSS variables and Tailwind v4 theme values.
 - **Components** — Button, Badge and Input, built on the tokens in React + TypeScript.
-- **Storybook** — documents every token and component.
+- **Storybook** — documents every token and component. **[View it live](https://anyaluss-a11y.github.io/trainlink-design-system/)**.
 
 ## Getting started
 
