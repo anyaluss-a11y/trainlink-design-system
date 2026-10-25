@@ -1,0 +1,73 @@
+{
+  "source": "https://www.figma.com/design/QViQFwha7m3siA4w50ipfz/TrainLink---Wireframes",
+  "collections": {
+    "Primitives": [
+      ["black/100", "#1C1F22"], ["black/40", "#6B7075"], ["black/10", "#DFDFDF"], ["black/5", "#F3F3F3"],
+      ["neutral/white", "#FFFFFF"], ["neutral/black", "#000000"],
+      ["gray/950", "#0A0A0A"], ["gray/800", "#424447"], ["gray/600", "#686A6C"], ["gray/500", "#8E8F91"],
+      ["gray/400", "#BEBFC0"], ["gray/300", "#D9D9D9"], ["gray/100", "#ECECF0"], ["gray/50", "#FBFBFB"],
+      ["teal/100", "#014751"], ["teal/85", "#25656B"], ["teal/70", "#488385"], ["teal/60", "#6CA1A0"], ["teal/30", "#B2DDD4"],
+      ["green/100", "#31EBA8"], ["green/120", "#0E9F6E"], ["green/60", "#84F3CB"], ["green/45", "#9FF6D7"],
+      ["green/35", "#BAF8E2"], ["green/20", "#D6FBEE"], ["green/15", "#BBF7D0"],
+      ["forest/100", "#108B3D"], ["lime/100", "#36A432"],
+      ["purple/900", "#1A032E"], ["purple/800", "#281F3F"], ["purple/600", "#6941C6"], ["purple/400", "#9E77ED"], ["purple/200", "#D8C8FD"],
+      ["blue/600", "#155EEF"], ["blue/300", "#B2C4FF"], ["blue/200", "#BDDBFF"], ["blue/100", "#3B82F6"], ["blue/10", "#E6F0FF"],
+      ["yellow/200", "#FFF6BD"],
+      ["red/500", "#EF4444"], ["red/100", "#E5484D"], ["red/10", "#FDE7E7"],
+      ["amber/100", "#F5A623"],
+      ["attention", "#FFC0BD"], ["success", "#BBF3AA"]
+    ],
+    "Semantic colors": [
+      ["bg/default", { "alias": "neutral/white" }],
+      ["bg/subtle", { "alias": "black/5" }],
+      ["bg/inverse", { "alias": "black/100" }],
+      ["border/default", { "alias": "black/10" }],
+      ["border/subtle", { "alias": "black/5" }],
+      ["text/primary", { "alias": "black/100" }],
+      ["text/secondary", { "alias": "black/40" }],
+      ["text/inverse", { "alias": "neutral/white" }],
+      ["text/brand", { "alias": "teal/100" }],
+      ["icon/primary", { "alias": "black/100" }],
+      ["icon/secondary", { "alias": "black/40" }],
+      ["action/primary/default", { "alias": "green/100" }],
+      ["action/primary/on", { "alias": "black/100" }],
+      ["action/secondary/default", { "alias": "teal/100" }],
+      ["action/secondary/on", { "alias": "neutral/white" }],
+      ["feedback/success/bg", { "alias": "success" }],
+      ["feedback/success/text", { "alias": "green/120" }],
+      ["feedback/warning/bg", { "alias": "attention" }],
+      ["feedback/warning/text", { "alias": "amber/100" }],
+      ["feedback/error/bg", { "alias": "red/10" }],
+      ["feedback/error/text", { "alias": "red/100" }],
+      ["feedback/info/bg", { "alias": "blue/10" }],
+      ["feedback/info/text", { "alias": "blue/100" }]
+    ],
+    "Sizing": {
+      "spacing": [["0", 0], ["0_5", 2], ["1", 4], ["1_5", 6], ["2", 8], ["2_5", 10], ["3", 12], ["3_5", 14], ["4", 16], ["5", 20], ["6", 24], ["7", 28], ["8", 32], ["10", 40], ["20", 80]],
+      "size": [["3_5", 14], ["4", 16], ["5", 20], ["6", 24], ["7", 28], ["8", 32], ["9", 36], ["10", 40], ["11", 44], ["12", 48], ["14", 56], ["15", 60], ["18", 72], ["22", 88], ["40", 160]],
+      "radii": [["none", 0], ["sm", 4], ["md", 6], ["lg", 8], ["xl", 12], ["2xl", 16], ["4xl", 32], ["full", 9999]],
+      "borders": [["sm", 1], ["md", 2], ["xl", 6]]
+    },
+    "Typography": {
+      "fontFamily": { "body": "Manrope" },
+      "fontWeight": { "medium": 500, "semibold": 600, "bold": 700 },
+      "fontSize": { "xs": 12, "sm": 14, "md": 16, "lg": 18, "xl": 20, "2xl": 24, "3xl": 30, "display": 160 },
+      "letterSpacing": { "normal": 0, "tight": -3 }
+    }
+  },
+  "textStyles": [
+    { "name": "Body/xs", "weight": 500, "size": 12, "lh": 16, "ls": 0 },
+    { "name": "Body/sm", "weight": 500, "size": 14, "lh": 20, "ls": 0 },
+    { "name": "Body/md", "weight": 500, "size": 16, "lh": 24, "ls": 0 },
+    { "name": "Label/xs", "weight": 600, "size": 12, "lh": 20, "ls": 0 },
+    { "name": "Label/sm", "weight": 600, "size": 14, "lh": 20, "ls": 0 },
+    { "name": "Label/md", "weight": 600, "size": 16, "lh": 24, "ls": 0 },
+    { "name": "Body/sm-bold", "weight": 700, "size": 14, "lh": 24, "ls": 0 },
+    { "name": "Heading/xs", "weight": 700, "size": 18, "lh": 30, "ls": 0 },
+    { "name": "Heading/sm", "weight": 600, "size": 20, "lh": 30, "ls": 0 },
+    { "name": "Heading/sm-tight", "weight": 500, "size": 20, "lh": 32, "ls": -3 },
+    { "name": "Heading/lg", "weight": 600, "size": 24, "lh": 32, "ls": 0 },
+    { "name": "Heading/xl", "weight": 600, "size": 30, "lh": 44, "ls": 0 },
+    { "name": "Display/lg", "weight": 600, "size": 160, "lh": "auto", "ls": 0 }
+  ]
+}

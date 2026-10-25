@@ -1,0 +1,9 @@
+@import '@fontsource-variable/manrope';
+@import 'tailwindcss';
+@import './styles/tokens.css';
+
+@layer base {
+  body {
+    @apply bg-bg-default text-text-primary type-body-sm antialiased;
+  }
+}
