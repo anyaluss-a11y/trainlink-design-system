@@ -57,7 +57,7 @@ export function SearchInput({ className, placeholder = 'Search', ...props }: Sea
   return (
     <div
       className={cn(
-        'flex w-full items-center gap-2 rounded-full border border-border-default bg-bg-default px-2 py-4',
+        'flex h-11.25 w-full max-w-full items-center gap-2 rounded-full border border-border-default bg-bg-default px-2',
         'focus-within:outline-2 focus-within:outline-teal-70',
         className,
       )}
