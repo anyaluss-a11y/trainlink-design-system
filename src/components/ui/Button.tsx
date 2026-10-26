@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cn } from '../../lib/cn'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'link'
@@ -60,7 +60,7 @@ export function Button({
     <button
       type={type}
       aria-pressed={variant === 'tertiary' && selected ? true : undefined}
-      className={clsx(
+      className={cn(
         base,
         variants[variant],
         !isLink && (iconOnly ? iconOnlySizes[size] : sizes[size]),

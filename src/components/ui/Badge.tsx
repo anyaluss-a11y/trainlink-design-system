@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cn } from '../../lib/cn'
 import type { HTMLAttributes } from 'react'
 
 export type BadgeTone = 'brand' | 'warning' | 'success' | 'neutral' | 'danger' | 'info' | 'muted' | 'outline'
@@ -28,7 +28,7 @@ const sizes: Record<BadgeSize, string> = {
 export function Badge({ tone = 'brand', size = 'sm', className, children, ...props }: BadgeProps) {
   return (
     <span
-      className={clsx(
+      className={cn(
         'inline-flex items-center justify-center gap-1.5 rounded-full whitespace-nowrap text-text-primary',
         tone === 'outline' ? 'type-body-xs px-3' : 'type-label-xs',
         tone === 'outline' && size === 'sm' ? 'py-1' : sizes[size],

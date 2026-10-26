@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cn } from '../../lib/cn'
 import { Search } from 'lucide-react'
 import { useId } from 'react'
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from 'react'
@@ -34,7 +34,7 @@ export function Input({ label, hint, className, id, ...props }: InputProps) {
   const inputId = id ?? autoId
   return (
     <Field id={inputId} label={label} hint={hint}>
-      <input id={inputId} className={clsx(fieldBase, 'min-h-13', className)} {...props} />
+      <input id={inputId} className={cn(fieldBase, 'min-h-13', className)} {...props} />
     </Field>
   )
 }
@@ -46,7 +46,7 @@ export function Textarea({ label, hint, className, id, ...props }: TextareaProps
   const textareaId = id ?? autoId
   return (
     <Field id={textareaId} label={label} hint={hint}>
-      <textarea id={textareaId} className={clsx(fieldBase, 'h-32 resize-y', className)} {...props} />
+      <textarea id={textareaId} className={cn(fieldBase, 'h-32 resize-y', className)} {...props} />
     </Field>
   )
 }
@@ -56,7 +56,7 @@ export type SearchInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type
 export function SearchInput({ className, placeholder = 'Search', ...props }: SearchInputProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex w-full items-center gap-2 rounded-full border border-border-default bg-bg-default px-2 py-4',
         'focus-within:outline-2 focus-within:outline-teal-70',
         className,
