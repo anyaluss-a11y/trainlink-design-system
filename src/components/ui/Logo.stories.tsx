@@ -5,7 +5,7 @@ const meta = {
   title: 'Components/Logo',
   component: Logo,
   tags: ['autodocs'],
-  argTypes: { tone: { control: 'inline-radio', options: ['light', 'brand'] } },
+  argTypes: { tone: { control: 'inline-radio', options: ['light', 'brand', 'dark'] } },
 } satisfies Meta<typeof Logo>
 
 export default meta
@@ -19,3 +19,7 @@ const onDark = (Story: () => React.ReactElement) => (
 
 export const Light: Story = { args: { tone: 'light' }, decorators: [onDark] }
 export const Brand: Story = { args: { tone: 'brand' }, decorators: [onDark] }
+export const Dark: Story = {
+  args: { tone: 'dark' },
+  decorators: [(Story) => <div className="rounded-sm bg-bg-subtle p-8"><Story /></div>],
+}

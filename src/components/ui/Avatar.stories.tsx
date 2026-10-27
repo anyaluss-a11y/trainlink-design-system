@@ -8,7 +8,7 @@ const meta = {
   args: { name: 'Naledi Dlamini', size: 'lg' },
   argTypes: {
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg', 'xl'] },
-    shape: { control: 'inline-radio', options: ['circle', 'rounded'] },
+    shape: { control: 'inline-radio', options: ['circle', 'rounded', 'square'] },
   },
 } satisfies Meta<typeof Avatar>
 

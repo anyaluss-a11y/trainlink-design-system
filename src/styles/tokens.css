@@ -128,7 +128,7 @@
 }
 
 /* Text styles: one utility per Figma text style, e.g. class="type-body-sm" */
-@source inline("type-body-xs type-body-sm type-body-md type-label-xs type-label-sm type-label-md type-body-sm-bold type-heading-xs type-heading-sm type-heading-sm-tight type-heading-lg type-heading-xl type-display-lg");
+@source inline("type-body-xs type-body-sm type-body-md type-label-xs type-label-sm type-label-md type-body-sm-bold type-heading-xs type-heading-sm type-heading-sm-tight type-heading-lg type-heading-xl type-display-hero type-display-title type-display-cta type-heading-2xl type-heading-card type-body-2xl type-body-xl type-body-lg type-label-lg type-display-lg");
 
 @utility type-body-xs {
   font-family: var(--font-sans);
@@ -223,6 +223,78 @@
   font-weight: 600;
   font-size: 30px;
   line-height: 44px;
+  letter-spacing: 0;
+}
+
+@utility type-display-hero {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 56px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@utility type-display-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@utility type-display-cta {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+@utility type-heading-2xl {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 32px;
+  letter-spacing: 0;
+}
+
+@utility type-heading-card {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 40px;
+  letter-spacing: 0;
+}
+
+@utility type-body-2xl {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+@utility type-body-xl {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+@utility type-body-lg {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0;
+}
+
+@utility type-label-lg {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 36px;
   letter-spacing: 0;
 }
 

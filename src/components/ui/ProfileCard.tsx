@@ -14,6 +14,8 @@ export interface ProfileCardProps extends HTMLAttributes<HTMLElement> {
   /** Areas of expertise. Only the first `maxTags` are shown, the rest become a "+N" badge. */
   tags?: string[]
   maxTags?: number
+  /** `horizontal` puts the photo beside the details, as used in marketing sections. */
+  orientation?: 'vertical' | 'horizontal'
 }
 
 export function ProfileCard({
@@ -24,11 +26,45 @@ export function ProfileCard({
   jobsCompleted,
   tags = [],
   maxTags = 2,
+  orientation = 'vertical',
   className,
   ...props
 }: ProfileCardProps) {
   const visibleTags = tags.slice(0, maxTags)
   const hiddenCount = tags.length - visibleTags.length
+  const tagList = tags.length > 0 && (
+    <ul className="flex list-none flex-wrap gap-1" aria-label="Expertise">
+      {visibleTags.map((tag) => (
+        <li key={tag}>
+          <Badge tone="outline">{tag}</Badge>
+        </li>
+      ))}
+      {hiddenCount > 0 && (
+        <li>
+          <Badge tone="outline" aria-label={`${hiddenCount} more`}>
+            +{hiddenCount}
+          </Badge>
+        </li>
+      )}
+    </ul>
+  )
+  if (orientation === 'horizontal') {
+    return (
+      <article
+        className={cn('flex w-full max-w-113 items-stretch gap-4 rounded-sm border border-border-subtle bg-bg-default p-4', className)}
+        {...props}
+      >
+        <Avatar src={avatarSrc} name={name} size="xl" shape="square" />
+        <div className="flex min-w-0 flex-1 flex-col justify-between gap-4">
+          <div className="flex flex-col gap-1">
+            <h3 className="type-heading-sm text-neutral-black">{name}</h3>
+            <p className="type-body-sm text-gray-500">{role}</p>
+          </div>
+          {tagList}
+        </div>
+      </article>
+    )
+  }
   return (
     <article
       className={cn('flex w-64.5 flex-col items-start gap-6 rounded-lg border border-border-subtle bg-gray-50 p-4', className)}
@@ -46,22 +82,7 @@ export function ProfileCard({
           <Review rating={rating} jobsCompleted={jobsCompleted} />
         </div>
       </div>
-      {tags.length > 0 && (
-        <ul className="flex list-none flex-wrap gap-1" aria-label="Expertise">
-          {visibleTags.map((tag) => (
-            <li key={tag}>
-              <Badge tone="outline">{tag}</Badge>
-            </li>
-          ))}
-          {hiddenCount > 0 && (
-            <li>
-              <Badge tone="outline" aria-label={`${hiddenCount} more`}>
-                +{hiddenCount}
-              </Badge>
-            </li>
-          )}
-        </ul>
-      )}
+      {tagList}
     </article>
   )
 }

@@ -3,14 +3,14 @@ import type { ImgHTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
-export type AvatarShape = 'circle' | 'rounded'
+export type AvatarShape = 'circle' | 'rounded' | 'square'
 
 export interface AvatarProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'width' | 'height'> {
   src?: string
   /** Name of the person. Used as the image description and for the initials fallback. */
   name: string
   size?: AvatarSize
-  /** `rounded` is the soft square used on profile cards. */
+  /** `rounded` is the soft square used on profile cards. `square` has small corners. */
   shape?: AvatarShape
 }
 
@@ -43,7 +43,7 @@ export function Avatar({ src, name, size = 'lg', shape = 'circle', className, ..
     <span
       className={cn(
         'relative inline-flex shrink-0 items-center justify-center overflow-hidden bg-blue-300',
-        shape === 'circle' ? 'rounded-full' : 'rounded-4xl',
+        shape === 'circle' ? 'rounded-full' : shape === 'rounded' ? 'rounded-4xl' : 'rounded-sm',
         sizes[size],
         className,
       )}

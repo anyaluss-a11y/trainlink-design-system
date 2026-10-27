@@ -1,4 +1,4 @@
-name: Deploy Storybook
+name: Deploy Storybook and app
 
 on:
   push:
@@ -28,6 +28,8 @@ jobs:
       - run: npm run lint
       - run: npx tsc -b
       - run: npm run build-storybook
+      - run: npm run build
+      - run: mkdir -p storybook-static/app && cp -R dist/. storybook-static/app/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: storybook-static

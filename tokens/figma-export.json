@@ -69,6 +69,15 @@
     { "name": "Heading/sm-tight", "weight": 500, "size": 20, "lh": 32, "ls": -3 },
     { "name": "Heading/lg", "weight": 600, "size": 24, "lh": 32, "ls": 0 },
     { "name": "Heading/xl", "weight": 600, "size": 30, "lh": 44, "ls": 0 },
+    { "name": "Display/hero", "weight": 500, "size": 56, "lh": "120%", "ls": -2 },
+    { "name": "Display/title", "weight": 500, "size": 48, "lh": "120%", "ls": -2 },
+    { "name": "Display/cta", "weight": 500, "size": 40, "lh": "120%", "ls": -2 },
+    { "name": "Heading/2xl", "weight": 600, "size": 36, "lh": 32, "ls": 0 },
+    { "name": "Heading/card", "weight": 500, "size": 28, "lh": 40, "ls": 0 },
+    { "name": "Body/2xl", "weight": 500, "size": 24, "lh": "130%", "ls": 0 },
+    { "name": "Body/xl", "weight": 500, "size": 20, "lh": "150%", "ls": 0 },
+    { "name": "Body/lg", "weight": 500, "size": 18, "lh": 28, "ls": 0 },
+    { "name": "Label/lg", "weight": 600, "size": 18, "lh": 36, "ls": 0 },
     { "name": "Display/lg", "weight": 600, "size": 160, "lh": "auto", "ls": 0 }
   ]
 }

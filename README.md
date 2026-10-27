@@ -3,15 +3,16 @@
 A design system for the TrainLink marketplace, built from the TrainLink Figma file with AI assistance (Claude Code + the Figma MCP server).
 
 - **Design tokens** — colors (primitives and semantic), sizing and typography, exported from Figma variables into `tokens/figma-export.json` and compiled to CSS variables and Tailwind v4 theme values.
-- **Components** — Button, Badge and Input, built on the tokens in React + TypeScript.
+- **Components** — buttons, inputs, headers and navigation, profile elements, filter bar and marketing sections, built on the tokens in React + TypeScript.
 - **Storybook** — documents every token and component. **[View it live](https://anyaluss-a11y.github.io/trainlink-design-system/)**.
+- **The app** — the TrainLink landing page and sign-up, log-in and password-reset flow, built from the components. **[Open the app](https://anyaluss-a11y.github.io/trainlink-design-system/app/)**.
 
 ## Getting started
 
 ```bash
 npm install
 npm run storybook   # component and token docs on http://localhost:6006
-npm run dev         # demo page on http://localhost:5173
+npm run dev         # the app (landing page and auth screens) on http://localhost:5173
 ```
 
 ## How the tokens work

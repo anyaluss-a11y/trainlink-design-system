@@ -21,3 +21,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {}
 export const FewTags: Story = { args: { tags: ['Business', 'Product Management'] } }
 export const NewFacilitator: Story = { args: { rating: undefined, jobsCompleted: undefined, tags: ['Business'] } }
+export const Horizontal: Story = {
+  args: { orientation: 'horizontal' },
+  decorators: [(Story) => <div className="w-113"><Story /></div>],
+}

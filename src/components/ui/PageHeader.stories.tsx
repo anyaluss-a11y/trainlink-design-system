@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Bell, BriefcaseBusiness, Compass, House, MessagesSquare, ArrowRight } from 'lucide-react'
 import { Avatar } from './Avatar'
-import { Button } from './Button'
+import { Button, ButtonLink } from './Button'
 import { Navigation, NavigationItem } from './Navigation'
 import { PageHeader } from './PageHeader'
 
@@ -11,7 +11,7 @@ const meta = {
   tags: ['autodocs'],
   parameters: { layout: 'fullscreen' },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['default', 'landing', 'light'] },
+    variant: { control: 'inline-radio', options: ['default', 'landing', 'light', 'subtle'] },
   },
 } satisfies Meta<typeof PageHeader>
 
@@ -95,6 +95,25 @@ export const Light: Story = {
         {notifications('bg-teal-100 text-green-35 hover:bg-teal-85')}
         {avatar}
       </>
+    ),
+  },
+}
+
+/** Light grey header with black logo and text, as used on the marketing site. */
+export const Subtle: Story = {
+  args: {
+    variant: 'subtle',
+    navigation: (
+      <Navigation>
+        <NavigationItem href="#" label="About" />
+        <NavigationItem href="#" label="Pricing" />
+        <NavigationItem href="#" label="How it works" />
+      </Navigation>
+    ),
+    actions: (
+      <ButtonLink variant="outline" href="#">
+        Sign in
+      </ButtonLink>
     ),
   },
 }

@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: { children: 'Start chat', variant: 'primary', size: 'sm', disabled: false },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'tertiary', 'link'] },
+    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'tertiary', 'link', 'accent', 'outline', 'inverse'] },
     size: { control: 'inline-radio', options: ['sm', 'lg'] },
   },
 } satisfies Meta<typeof Button>
@@ -34,3 +34,10 @@ export const SecondaryIconOnlyLarge: Story = {
 export const Tertiary: Story = { args: { variant: 'tertiary', children: 'Location', iconRight: chevron } }
 export const TertiarySelected: Story = { args: { variant: 'tertiary', children: 'Location', iconRight: chevron, selected: true } }
 export const Link: Story = { args: { variant: 'link', children: 'Sort by: Recently posted', iconRight: chevron } }
+
+export const Accent: Story = { args: { variant: 'accent', children: 'Get started' } }
+export const Outline: Story = { args: { variant: 'outline', children: 'Sign in' } }
+export const Inverse: Story = {
+  args: { variant: 'inverse', children: 'Get started' },
+  decorators: [(Story) => <div className="rounded-sm bg-green-45 p-10"><Story /></div>],
+}

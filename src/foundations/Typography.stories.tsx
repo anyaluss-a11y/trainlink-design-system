@@ -19,7 +19,7 @@ export const TextStyles: Story = {
           <div className="flex flex-col">
             <span className="type-label-xs">{s.name}</span>
             <span className="type-body-xs text-text-secondary">
-              {s.size}px / {s.lh === 'auto' ? 'auto' : `${s.lh}px`} · {s.weight}
+              {s.size}px / {s.lh === 'auto' ? 'auto' : typeof s.lh === 'string' ? s.lh : `${s.lh}px`} · {s.weight}
               {s.ls ? ` · ${s.ls}%` : ''}
             </span>
             <code className="type-body-xs text-text-secondary">type-{slug(s.name)}</code>

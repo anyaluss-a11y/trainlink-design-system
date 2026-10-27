@@ -49,7 +49,7 @@ for (const s of data.textStyles) {
   out('  font-family: var(--font-sans);')
   out(`  font-weight: ${s.weight};`)
   out(`  font-size: ${px(s.size)};`)
-  out(`  line-height: ${s.lh === 'auto' ? 'normal' : px(s.lh)};`)
+  out(`  line-height: ${s.lh === 'auto' ? 'normal' : typeof s.lh === 'string' ? String(parseFloat(s.lh) / 100) : px(s.lh)};`)
   out(`  letter-spacing: ${s.ls === 0 ? '0' : `${s.ls / 100}em`};`)
   out('}')
   out()

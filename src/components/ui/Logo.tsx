@@ -1,20 +1,24 @@
-import { cn } from '../../lib/cn'
 import logotypeBrand from '../../assets/brand/logo-logotype-brand.svg'
+import logotypeDark from '../../assets/brand/logo-logotype-dark.svg'
 import logotypeLight from '../../assets/brand/logo-logotype-light.svg'
 import symbolBrand from '../../assets/brand/logo-symbol-brand.svg'
+import symbolDark from '../../assets/brand/logo-symbol-dark.svg'
 import symbolLight from '../../assets/brand/logo-symbol-light.svg'
+import { cn } from '../../lib/cn'
 
-export type LogoTone = 'light' | 'brand'
+export type LogoTone = 'light' | 'brand' | 'dark'
 
 export interface LogoProps {
-  /** `light` is white, for dark backgrounds. `brand` is the TrainLink green. */
+  /** `light` is white, for dark backgrounds. `brand` is the TrainLink green. `dark` is black, for light backgrounds. */
   tone?: LogoTone
+  /** Set the size with `h-*` and `w-*` classes. Keep the 179:36 proportion. */
   className?: string
 }
 
 const assets: Record<LogoTone, { symbol: string; logotype: string }> = {
   light: { symbol: symbolLight, logotype: logotypeLight },
   brand: { symbol: symbolBrand, logotype: logotypeBrand },
+  dark: { symbol: symbolDark, logotype: logotypeDark },
 }
 
 export function Logo({ tone = 'light', className }: LogoProps) {
