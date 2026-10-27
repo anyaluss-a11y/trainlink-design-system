@@ -48,7 +48,7 @@ const ctaTiles: Tile[] = [
 /** Decorative photos scattered around a section. Hidden on small screens. */
 function TileField({ tiles }: { tiles: Tile[] }) {
   return (
-    <div className="hidden lg:block" aria-hidden>
+    <div className="hidden xl:block" aria-hidden>
       {tiles.map((tile) => (
         <img
           key={`${tile.left}-${tile.top}`}
@@ -76,38 +76,40 @@ const testimonial =
 export function Landing() {
   return (
     <div className="mx-auto flex max-w-360 flex-col gap-30 bg-bg-default p-5">
-      <PageHeader
-        variant="subtle"
-        logoHref="#/"
-        navigation={
-          <Navigation className="hidden md:flex">
-            <NavigationItem href="#/" label="About" onClick={scrollTo('about')} />
-            <NavigationItem href="#/" label="Pricing" onClick={scrollTo('pricing')} />
-            <NavigationItem href="#/" label="How it works" onClick={scrollTo('how-it-works')} />
-          </Navigation>
-        }
-        actions={
-          <ButtonLink variant="outline" href="#/login">
-            Sign in
-          </ButtonLink>
-        }
-      />
+      <div className="flex flex-col gap-15">
+        <PageHeader
+          variant="subtle"
+          logoHref="#/"
+          navigation={
+            <Navigation className="hidden md:flex">
+              <NavigationItem href="#/" label="About" onClick={scrollTo('about')} />
+              <NavigationItem href="#/" label="Pricing" onClick={scrollTo('pricing')} />
+              <NavigationItem href="#/" label="How it works" onClick={scrollTo('how-it-works')} />
+            </Navigation>
+          }
+          actions={
+            <ButtonLink variant="outline" href="#/login">
+              Sign in
+            </ButtonLink>
+          }
+        />
 
-      <section className="relative flex h-165 flex-col items-center justify-center gap-4 overflow-clip pt-35 pb-40">
-        <TileField tiles={heroTiles} />
-        <div className="relative flex flex-col items-center gap-10 px-6">
-          <div className="flex flex-col items-center gap-10 text-center">
-            <h1 className="type-display-hero max-w-163.5 text-neutral-black max-sm:text-[40px]!">Smart connections that move people forward</h1>
-            <p className="type-body-xl max-w-152.5 text-gray-500">
-              Access the world’s top independent trainers and facilitators. Collaborate with verified experts, manage
-              training programs, and ensure results — with secure project management and payment, all in one place.
-            </p>
+        <section className="relative flex h-165 flex-col items-center justify-center gap-4 overflow-clip pt-35 pb-40">
+          <TileField tiles={heroTiles} />
+          <div className="relative flex flex-col items-center gap-10 px-6">
+            <div className="flex flex-col items-center gap-10 text-center">
+              <h1 className="type-display-hero max-w-163.5 text-neutral-black max-sm:text-[40px]!">Smart connections that move people forward</h1>
+              <p className="type-body-xl max-w-152.5 text-gray-500">
+                Access the world’s top independent trainers and facilitators. Collaborate with verified experts, manage
+                training programs, and ensure results — with secure project management and payment, all in one place.
+              </p>
+            </div>
+            <ButtonLink variant="accent" href="#/signup">
+              Get started
+            </ButtonLink>
           </div>
-          <ButtonLink variant="accent" href="#/signup">
-            Get started
-          </ButtonLink>
-        </div>
-      </section>
+        </section>
+      </div>
 
       <section id="how-it-works" className="flex flex-col gap-15 rounded-sm bg-bg-subtle p-7.5 lg:flex-row">
         <BrandPanel className="min-h-100 w-full rounded-sm lg:min-h-0 lg:w-154.75 lg:shrink-0" />
