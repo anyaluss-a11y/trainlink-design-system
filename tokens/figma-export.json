@@ -14,7 +14,7 @@
       ["blue/600", "#155EEF"], ["blue/300", "#B2C4FF"], ["blue/200", "#BDDBFF"], ["blue/100", "#3B82F6"], ["blue/10", "#E6F0FF"],
       ["yellow/200", "#FFF6BD"],
       ["red/500", "#EF4444"], ["red/100", "#E5484D"], ["red/10", "#FDE7E7"],
-      ["amber/100", "#F5A623"],
+      ["amber/100", "#F5A623"], ["orange/500", "#F97316"],
       ["attention", "#FFC0BD"], ["success", "#BBF3AA"]
     ],
     "Semantic colors": [
@@ -29,6 +29,7 @@
       ["text/brand", { "alias": "teal/100" }],
       ["icon/primary", { "alias": "black/100" }],
       ["icon/secondary", { "alias": "black/40" }],
+      ["icon/rating", { "alias": "orange/500" }],
       ["action/primary/default", { "alias": "green/100" }],
       ["action/primary/on", { "alias": "black/100" }],
       ["action/secondary/default", { "alias": "teal/100" }],

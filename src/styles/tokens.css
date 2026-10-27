@@ -46,6 +46,7 @@
   --color-red-100: #E5484D;
   --color-red-10: #FDE7E7;
   --color-amber-100: #F5A623;
+  --color-orange-500: #F97316;
   --color-attention: #FFC0BD;
   --color-success: #BBF3AA;
 
@@ -60,6 +61,7 @@
   --color-text-brand: var(--color-teal-100);
   --color-icon-primary: var(--color-black-100);
   --color-icon-secondary: var(--color-black-40);
+  --color-icon-rating: var(--color-orange-500);
   --color-action-primary-default: var(--color-green-100);
   --color-action-primary-on: var(--color-black-100);
   --color-action-secondary-default: var(--color-teal-100);

@@ -30,7 +30,7 @@ export function Badge({ tone = 'brand', size = 'sm', className, children, ...pro
     <span
       className={cn(
         'inline-flex items-center justify-center gap-1.5 rounded-full whitespace-nowrap text-text-primary',
-        tone === 'outline' ? 'type-body-xs px-3' : 'type-label-xs',
+        tone === 'outline' ? 'type-body-xs px-2.5' : 'type-label-xs',
         tone === 'outline' && size === 'sm' ? 'py-1' : sizes[size],
         tone !== 'outline' && size === 'sm' && 'gap-2',
         tones[tone],
