@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { portraits } from '../../assets/people'
 import { Avatar } from './Avatar'
 
 const meta = {
@@ -16,6 +17,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 /** Without a photo the avatar shows the person's initials. Pass `src` to show an image. */
+export const Photo: Story = { args: { src: portraits[4] } }
 export const Initials: Story = {}
 export const Medium: Story = { args: { size: 'md' } }
 export const Small: Story = { args: { size: 'sm' } }

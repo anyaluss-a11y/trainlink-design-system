@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { portraits } from '../../assets/people'
 import { ProfileCard } from './ProfileCard'
 
 const meta = {
@@ -25,3 +26,4 @@ export const Horizontal: Story = {
   args: { orientation: 'horizontal' },
   decorators: [(Story) => <div className="w-113"><Story /></div>],
 }
+export const WithPhoto: Story = { args: { avatarSrc: portraits[2] } }

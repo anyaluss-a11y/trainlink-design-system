@@ -1,3 +1,4 @@
+import { portraits } from '../assets/people'
 import { BrandPanel } from '../components/ui/BrandPanel'
 import { ButtonLink } from '../components/ui/Button'
 import { CtaBanner } from '../components/ui/CtaBanner'
@@ -6,8 +7,6 @@ import { Footer } from '../components/ui/Footer'
 import type { FooterColumn } from '../components/ui/Footer'
 import { Navigation, NavigationItem } from '../components/ui/Navigation'
 import { PageHeader } from '../components/ui/PageHeader'
-import { PhotoPlaceholder } from '../components/ui/PhotoPlaceholder'
-import type { PhotoPlaceholderTone } from '../components/ui/PhotoPlaceholder'
 import { StepItem } from '../components/ui/StepItem'
 import { TestimonialCard } from '../components/ui/TestimonialCard'
 import {
@@ -22,8 +21,7 @@ const scrollTo = (id: string) => (event: React.MouseEvent) => {
 }
 
 interface Tile {
-  tone: PhotoPlaceholderTone
-  label: string
+  src: string
   /** Position as a share of the section width, so the tiles keep their layout at any desktop size. */
   left: string
   top: number
@@ -32,31 +30,32 @@ interface Tile {
 }
 
 const heroTiles: Tile[] = [
-  { tone: 'butter', label: 'Facilitator portrait', left: '1.9%', top: 308, width: 144, height: 163 },
-  { tone: 'lilac', label: 'Facilitator portrait', left: '7%', top: 61, width: 144, height: 163 },
-  { tone: 'green', label: 'Client portrait', left: '17.3%', top: 497, width: 144, height: 163 },
-  { tone: 'mint', label: 'Client portrait', left: '77.2%', top: 475, width: 144, height: 163 },
-  { tone: 'neutral', label: 'Facilitator portrait', left: '82.7%', top: 0, width: 144, height: 163 },
-  { tone: 'teal', label: 'Client portrait', left: '87.9%', top: 257, width: 144, height: 163 },
+  { src: portraits[0], left: '1.9%', top: 308, width: 144, height: 163 },
+  { src: portraits[4], left: '7%', top: 61, width: 144, height: 163 },
+  { src: portraits[2], left: '17.3%', top: 497, width: 144, height: 163 },
+  { src: portraits[5], left: '77.2%', top: 475, width: 144, height: 163 },
+  { src: portraits[1], left: '82.7%', top: 0, width: 144, height: 163 },
+  { src: portraits[3], left: '87.9%', top: 257, width: 144, height: 163 },
 ]
 
 const ctaTiles: Tile[] = [
-  { tone: 'lilac', label: 'Facilitator portrait', left: '4.7%', top: 95, width: 112, height: 145 },
-  { tone: 'butter', label: 'Client portrait', left: '11.9%', top: 353, width: 105, height: 136 },
-  { tone: 'green', label: 'Facilitator portrait', left: '86.6%', top: 73, width: 108, height: 122 },
-  { tone: 'neutral', label: 'Client portrait', left: '81%', top: 341, width: 110, height: 125 },
+  { src: portraits[3], left: '4.7%', top: 95, width: 112, height: 145 },
+  { src: portraits[5], left: '11.9%', top: 353, width: 105, height: 136 },
+  { src: portraits[1], left: '86.6%', top: 73, width: 108, height: 122 },
+  { src: portraits[0], left: '81%', top: 341, width: 110, height: 125 },
 ]
 
-/** Decorative image placeholders scattered around a section. Hidden on small screens. */
+/** Decorative photos scattered around a section. Hidden on small screens. */
 function TileField({ tiles }: { tiles: Tile[] }) {
   return (
     <div className="hidden lg:block" aria-hidden>
       {tiles.map((tile) => (
-        <PhotoPlaceholder
+        <img
           key={`${tile.left}-${tile.top}`}
-          tone={tile.tone}
-          label={tile.label}
-          className="absolute"
+          src={tile.src}
+          alt=""
+          loading="lazy"
+          className="absolute rounded-sm object-cover"
           style={{ left: tile.left, top: tile.top, width: tile.width, height: tile.height }}
         />
       ))}
@@ -170,8 +169,13 @@ export function Landing() {
       <section className="flex flex-col justify-between gap-10 rounded-sm bg-bg-subtle p-7.5 lg:flex-row">
         <h2 className="type-display-title max-w-137.25 text-text-primary max-sm:text-[32px]!">Why companies choose TrainLink</h2>
         <div className="flex w-full flex-col gap-3.75 lg:w-165.5">
-          <TestimonialCard quote={testimonial} name="Dan Blackman" role="Managing Director" />
-          <TestimonialCard quote={testimonial} name="Priya Naidoo" role="Head of Learning & Development" />
+          <TestimonialCard quote={testimonial} name="Dan Blackman" role="Managing Director" avatarSrc={portraits[3]} />
+          <TestimonialCard
+            quote={testimonial}
+            name="Priya Naidoo"
+            role="Head of Learning & Development"
+            avatarSrc={portraits[5]}
+          />
         </div>
       </section>
 

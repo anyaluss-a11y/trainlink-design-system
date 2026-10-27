@@ -1,5 +1,6 @@
 import '@fontsource/qwitcher-grypen'
 import { Quote, ShieldCheck, Star } from 'lucide-react'
+import { portraits } from '../../assets/people'
 import { ProfileCard } from '../../components/ui/ProfileCard'
 
 /** Product preview for "Trusted Network": a facilitator card with rating and certification pills. */
@@ -9,6 +10,7 @@ export function TrustedNetworkIllustration() {
       <ProfileCard
         orientation="horizontal"
         name="Sunil Bubramanial"
+        avatarSrc={portraits[2]}
         role="Head of product at Northwind"
         tags={['Business', 'Product Management', 'Leadership', 'Strategy', 'Coaching', 'Agile', 'Facilitation']}
         className="absolute top-0 left-0 sm:left-[12%] sm:w-[75%]"
