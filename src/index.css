@@ -2,6 +2,20 @@
 @import 'tailwindcss';
 @import './styles/tokens.css';
 
+@theme {
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(var(--float-distance, -8px));
+    }
+  }
+}
+
 @layer base {
   body {
     @apply bg-bg-default text-text-primary type-body-sm antialiased;

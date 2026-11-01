@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { portraits } from '../../assets/people'
 import { BrandPanel } from './BrandPanel'
 import { ButtonLink } from './Button'
 import { CtaBanner } from './CtaBanner'
 import { FeatureCard } from './FeatureCard'
+import { FloatingPortrait } from './FloatingPortrait'
 import { Footer } from './Footer'
 import { OptionCard } from './OptionCard'
 import { PhotoPlaceholder } from './PhotoPlaceholder'
+import { StarRating } from './StarRating'
 import { StepItem } from './StepItem'
 import { TestimonialCard } from './TestimonialCard'
 
@@ -111,6 +114,31 @@ export const PhotoPlaceholders: Story = {
       {(['mint', 'lilac', 'butter', 'green', 'teal', 'neutral'] as const).map((tone) => (
         <PhotoPlaceholder key={tone} tone={tone} label={`${tone} placeholder`} className="h-40 w-36" />
       ))}
+    </div>
+  ),
+}
+
+export const FloatingPortraitCard: Story = {
+  name: 'Floating portrait',
+  render: () => (
+    <div className="h-72 w-96 pt-6 pl-6">
+      <FloatingPortrait
+        src={portraits[4]}
+        competence="Public financial management"
+        rating={5}
+        active
+        className="relative h-40.75 w-36"
+      />
+    </div>
+  ),
+}
+
+export const StarRatings: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
+      <StarRating value={5} />
+      <StarRating value={4.2} />
+      <StarRating value={3} />
     </div>
   ),
 }
