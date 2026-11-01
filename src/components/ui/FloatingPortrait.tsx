@@ -22,7 +22,10 @@ export interface FloatingPortraitProps extends HTMLAttributes<HTMLDivElement> {
   floatDelay?: number
 }
 
-/** A photo that drifts gently up and down, with a card that pops in over its corner when `active`. */
+/**
+ * A photo that drifts gently up and down. When `active`, a card opens over its corner like a screen switching on:
+ * it grows from its top-left corner to full size, then folds back into that corner when `active` ends.
+ */
 export function FloatingPortrait({
   src,
   competence,
@@ -49,22 +52,33 @@ export function FloatingPortrait({
       <img src={src} alt="" loading="lazy" className="size-full rounded-sm object-cover" />
       <div
         className={cn(
-          'absolute z-10 flex flex-col gap-2 rounded-2xl border border-green-100 bg-blue-10/75 p-3',
-          'transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]',
-          'motion-reduce:transform-none motion-reduce:transition-opacity',
-          side === 'right' ? 'left-20 origin-top-left' : 'right-20 origin-top-right',
+          'absolute z-10 origin-top-left rounded-2xl border border-green-100 bg-blue-10/75',
+          'transition-[clip-path,scale,opacity] motion-reduce:transition-opacity',
+          side === 'right' ? 'left-20' : 'right-20',
           cardAbove ? 'bottom-[calc(100%-42px)]' : 'top-[calc(100%-42px)]',
-          active ? 'translate-y-0 scale-100 opacity-100' : 'pointer-events-none translate-y-2 scale-90 opacity-0',
+          active
+            ? 'scale-100 opacity-100 duration-[1200ms] ease-[cubic-bezier(0.4,0,0.2,1)] [clip-path:inset(0_0_0_0_round_1rem)]'
+            : 'pointer-events-none scale-60 opacity-0 duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)] [clip-path:inset(0_100%_100%_0_round_1rem)]',
+          'motion-reduce:scale-100 motion-reduce:[clip-path:none]',
         )}
       >
-        <p className="type-body-sm leading-[18px]! whitespace-nowrap text-neutral-black">{competence}</p>
-        <StarRating
-          value={rating}
+        <div
           className={cn(
-            '[&>svg]:transition-[opacity,transform] [&>svg]:duration-300 motion-reduce:[&>svg]:transition-none',
-            active ? '[&>svg]:scale-100 [&>svg]:opacity-100' : '[&>svg]:scale-50 [&>svg]:opacity-0',
+            'flex flex-col gap-2 p-3 transition-opacity motion-reduce:transition-none',
+            active ? 'opacity-100 delay-[600ms] duration-500' : 'opacity-0 duration-200',
           )}
-        />
+        >
+          <p className="type-body-sm leading-[18px]! whitespace-nowrap text-neutral-black">{competence}</p>
+          <StarRating
+            value={rating}
+            className={cn(
+              '[&>svg]:transition-[scale,opacity] motion-reduce:[&>svg]:transition-none',
+              active
+                ? '[&>svg]:scale-100 [&>svg]:opacity-100 [&>svg]:duration-500 [&>svg:nth-child(1)]:delay-[750ms] [&>svg:nth-child(2)]:delay-[830ms] [&>svg:nth-child(3)]:delay-[910ms] [&>svg:nth-child(4)]:delay-[990ms] [&>svg:nth-child(5)]:delay-[1070ms]'
+                : '[&>svg]:scale-50 [&>svg]:opacity-0 [&>svg]:duration-150',
+            )}
+          />
+        </div>
       </div>
     </div>
   )
