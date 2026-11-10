@@ -124,8 +124,9 @@ export const FloatingPortraitCard: Story = {
     <div className="h-72 w-96 pt-6 pl-6">
       <FloatingPortrait
         src={portraits[4]}
-        competence="Public financial management"
-        rating={5}
+        competence="Public Financial Management"
+        name="Joan P."
+        rating={4.9}
         active
         className="relative h-40.75 w-36"
       />

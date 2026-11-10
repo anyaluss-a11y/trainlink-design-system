@@ -10,7 +10,7 @@ interface SpotlightOptions {
 }
 
 /** Cycles through `count` items one at a time. Returns the index in the spotlight, or null during the pause. */
-export function useSpotlight(count: number, { visibleMs = 4800, gapMs = 1000, startDelayMs = 900 }: SpotlightOptions = {}) {
+export function useSpotlight(count: number, { visibleMs = 4800, gapMs = 1200, startDelayMs = 900 }: SpotlightOptions = {}) {
   const [active, setActive] = useState<number | null>(null)
 
   useEffect(() => {

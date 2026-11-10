@@ -33,6 +33,7 @@ interface Tile {
 
 interface HeroPortrait extends Tile {
   competence: string
+  name: string
   rating: number
   side: 'left' | 'right'
   cardAbove?: boolean
@@ -43,12 +44,12 @@ interface HeroPortrait extends Tile {
 
 /** Listed clockwise from the top left, which is the order the competence cards appear in. */
 const heroPortraits: HeroPortrait[] = [
-  { src: portraits[4], left: '7%', top: 61, width: 144, height: 163, competence: 'Public financial management', rating: 5, side: 'right', floatDistance: 8, floatDuration: 6, floatDelay: 0 },
-  { src: portraits[1], left: '82.7%', top: 0, width: 144, height: 163, competence: 'Leadership coaching', rating: 5, side: 'left', floatDistance: 10, floatDuration: 7, floatDelay: -2 },
-  { src: portraits[3], left: '87.9%', top: 257, width: 144, height: 163, competence: 'Change management', rating: 4, side: 'left', floatDistance: 7, floatDuration: 5.5, floatDelay: -4 },
-  { src: portraits[5], left: '77.2%', top: 475, width: 144, height: 163, competence: 'Customer experience', rating: 5, side: 'left', cardAbove: true, floatDistance: 9, floatDuration: 6.5, floatDelay: -1 },
-  { src: portraits[2], left: '17.3%', top: 497, width: 144, height: 163, competence: 'Agile delivery', rating: 4, side: 'right', cardAbove: true, floatDistance: 8, floatDuration: 7.5, floatDelay: -3 },
-  { src: portraits[0], left: '1.9%', top: 308, width: 144, height: 163, competence: 'Digital transformation', rating: 5, side: 'right', floatDistance: 10, floatDuration: 6, floatDelay: -5 },
+  { src: portraits[4], left: '7%', top: 61, width: 144, height: 163, competence: 'Public Financial Management', name: 'Joan P.', rating: 4.9, side: 'right', floatDistance: 8, floatDuration: 6, floatDelay: 0 },
+  { src: portraits[1], left: '82.7%', top: 0, width: 144, height: 163, competence: 'Leadership Coaching', name: 'Kenji T.', rating: 5.0, side: 'left', floatDistance: 10, floatDuration: 7, floatDelay: -2 },
+  { src: portraits[3], left: '87.9%', top: 257, width: 144, height: 163, competence: 'Change Management', name: 'Michael B.', rating: 4.8, side: 'left', floatDistance: 7, floatDuration: 5.5, floatDelay: -4 },
+  { src: portraits[5], left: '77.2%', top: 475, width: 144, height: 163, competence: 'Customer Experience', name: 'Elena R.', rating: 4.9, side: 'left', cardAbove: true, floatDistance: 9, floatDuration: 6.5, floatDelay: -1 },
+  { src: portraits[2], left: '17.3%', top: 497, width: 144, height: 163, competence: 'Agile Delivery', name: 'Daniel O.', rating: 4.7, side: 'right', cardAbove: true, floatDistance: 8, floatDuration: 7.5, floatDelay: -3 },
+  { src: portraits[0], left: '1.9%', top: 308, width: 144, height: 163, competence: 'Digital Transformation', name: 'Naledi D.', rating: 5.0, side: 'right', floatDistance: 10, floatDuration: 6, floatDelay: -5 },
 ]
 
 const ctaTiles: Tile[] = [
@@ -86,6 +87,7 @@ function HeroPortraits() {
           key={portrait.left}
           src={portrait.src}
           competence={portrait.competence}
+          name={portrait.name}
           rating={portrait.rating}
           side={portrait.side}
           cardAbove={portrait.cardAbove}
