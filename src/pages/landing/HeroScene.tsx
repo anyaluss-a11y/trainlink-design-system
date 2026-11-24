@@ -88,13 +88,15 @@ const photos: HeroPhoto[] = [
 type Span = [number, number]
 
 /**
- * Scroll progress (0 to 1) for each stage. Wave 1 leaves while wave 2 arrives, wave 2 holds, then leaves while
- * wave 3 arrives. `appear` fades wave 3's faint background photos in before they start to move.
+ * Scroll progress (0 to 1) for each stage. Each wave arrives over exactly the stretch of scroll in which the one in
+ * front of it leaves, so the photos behind come forward at the same time as the photos in front fly off. Only a short
+ * hold in the middle lets wave 2 settle. Wave 3 also creeps forward from the first scroll (`appear` fades it in, and
+ * it drifts a little closer) so it is already on its way when its turn comes.
  */
 const TIMELINE: Record<Wave, { enter?: Span; exit?: Span; appear?: Span }> = {
-  1: { exit: [0.03, 0.26] },
-  2: { enter: [0.1, 0.36], exit: [0.5, 0.73] },
-  3: { enter: [0.58, 0.88], appear: [0.38, 0.52] },
+  1: { exit: [0.02, 0.44] },
+  2: { enter: [0.02, 0.44], exit: [0.56, 0.98] },
+  3: { enter: [0.56, 0.98], appear: [0.06, 0.4] },
 }
 
 /** Scroll distance the hero stays pinned for, as a share of the viewport height. */
@@ -102,8 +104,10 @@ const PIN_DISTANCE_VH = 200
 const GHOST_OPACITY = 0.1
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
-const smooth = (t: number) => t * t * (3 - 2 * t)
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+const smooth = (t: number) => t * t * (3 - 2 * t)
+/** Eases movement a little at each end, but keeps most of it steady so the photos keep gliding as you scroll. */
+const glide = (t: number) => lerp(t, smooth(t), 0.4)
 const within = (p: number, [from, to]: Span) => clamp01((p - from) / (to - from))
 
 interface Pose {
@@ -117,8 +121,8 @@ interface Pose {
 
 function poseAt(photo: HeroPhoto, p: number): Pose {
   const { enter, exit, appear } = TIMELINE[photo.wave]
-  const arrive = enter ? smooth(within(p, enter)) : 1
-  const leave = exit ? smooth(within(p, exit)) : 0
+  const arrive = enter ? glide(within(p, enter)) : 1
+  const leave = exit ? glide(within(p, exit)) : 0
   const present = appear ? smooth(within(p, appear)) : 1
 
   let x = 0
@@ -128,11 +132,15 @@ function poseAt(photo: HeroPhoto, p: number): Pose {
   let blur = 0
 
   if (photo.ghost && enter) {
-    const dx = photo.ghost.x + photo.ghost.w / 2 - (photo.rest.x + photo.rest.w / 2)
-    const dy = photo.ghost.y + photo.ghost.h / 2 - (photo.rest.y + photo.rest.h / 2)
+    // Wave 3 starts even further back, and creeps forward before its own turn, so it comes forward gradually.
+    const far = photo.wave === 3 ? 1 - glide(within(p, [0, enter[0]])) : 0
+    const ghostCenterX = photo.ghost.x + photo.ghost.w / 2
+    const ghostCenterY = photo.ghost.y + photo.ghost.h / 2
+    const dx = ghostCenterX + (HERO_CENTER.x - ghostCenterX) * 0.3 * far - (photo.rest.x + photo.rest.w / 2)
+    const dy = ghostCenterY + (HERO_CENTER.y - ghostCenterY) * 0.3 * far - (photo.rest.y + photo.rest.h / 2)
     x = lerp(dx, 0, arrive)
     y = lerp(dy, 0, arrive)
-    scale = lerp(photo.ghost.w / photo.rest.w, 1, arrive)
+    scale = lerp((photo.ghost.w / photo.rest.w) * lerp(1, 0.6, far), 1, arrive)
     opacity = lerp(GHOST_OPACITY, 1, smooth(clamp01(arrive / 0.7)))
     blur = lerp(photo.ghost.blur, 0, arrive)
   }
