@@ -29,7 +29,10 @@ export function useSpotlight(count: number, { visibleMs = 4800, gapMs = 1200, st
     }
 
     timer = window.setTimeout(show, startDelayMs)
-    return () => window.clearTimeout(timer)
+    return () => {
+      window.clearTimeout(timer)
+      setActive(null)
+    }
   }, [count, visibleMs, gapMs, startDelayMs])
 
   return active

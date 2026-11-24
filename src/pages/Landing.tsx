@@ -1,16 +1,15 @@
 import { portraits } from '../assets/people'
-import { useSpotlight } from '../hooks/useSpotlight'
 import { BrandPanel } from '../components/ui/BrandPanel'
 import { ButtonLink } from '../components/ui/Button'
 import { CtaBanner } from '../components/ui/CtaBanner'
 import { FeatureCard } from '../components/ui/FeatureCard'
-import { FloatingPortrait } from '../components/ui/FloatingPortrait'
 import { Footer } from '../components/ui/Footer'
 import type { FooterColumn } from '../components/ui/Footer'
 import { Navigation, NavigationItem } from '../components/ui/Navigation'
 import { PageHeader } from '../components/ui/PageHeader'
 import { StepItem } from '../components/ui/StepItem'
 import { TestimonialCard } from '../components/ui/TestimonialCard'
+import { HeroScene } from './landing/HeroScene'
 import {
   SecureWorkflowIllustration,
   SmartMatchingIllustration,
@@ -31,27 +30,6 @@ interface Tile {
   height: number
 }
 
-interface HeroPortrait extends Tile {
-  competence: string
-  name: string
-  rating: number
-  side: 'left' | 'right'
-  cardAbove?: boolean
-  floatDistance: number
-  floatDuration: number
-  floatDelay: number
-}
-
-/** Listed clockwise from the top left, which is the order the competence cards appear in. */
-const heroPortraits: HeroPortrait[] = [
-  { src: portraits[4], left: '7%', top: 61, width: 144, height: 163, competence: 'Public Financial Management', name: 'Joan P.', rating: 4.9, side: 'right', floatDistance: 8, floatDuration: 6, floatDelay: 0 },
-  { src: portraits[1], left: '82.7%', top: 0, width: 144, height: 163, competence: 'Leadership Coaching', name: 'Kenji T.', rating: 5.0, side: 'left', floatDistance: 10, floatDuration: 7, floatDelay: -2 },
-  { src: portraits[3], left: '87.9%', top: 257, width: 144, height: 163, competence: 'Change Management', name: 'Michael B.', rating: 4.8, side: 'left', floatDistance: 7, floatDuration: 5.5, floatDelay: -4 },
-  { src: portraits[5], left: '77.2%', top: 475, width: 144, height: 163, competence: 'Customer Experience', name: 'Elena R.', rating: 4.9, side: 'left', cardAbove: true, floatDistance: 9, floatDuration: 6.5, floatDelay: -1 },
-  { src: portraits[2], left: '17.3%', top: 497, width: 144, height: 163, competence: 'Agile Delivery', name: 'Daniel O.', rating: 4.7, side: 'right', cardAbove: true, floatDistance: 8, floatDuration: 7.5, floatDelay: -3 },
-  { src: portraits[0], left: '1.9%', top: 308, width: 144, height: 163, competence: 'Digital Transformation', name: 'Naledi D.', rating: 5.0, side: 'right', floatDistance: 10, floatDuration: 6, floatDelay: -5 },
-]
-
 const ctaTiles: Tile[] = [
   { src: portraits[3], left: '4.7%', top: 95, width: 112, height: 145 },
   { src: portraits[5], left: '11.9%', top: 353, width: 105, height: 136 },
@@ -71,32 +49,6 @@ function TileField({ tiles }: { tiles: Tile[] }) {
           loading="lazy"
           className="absolute rounded-sm object-cover"
           style={{ left: tile.left, top: tile.top, width: tile.width, height: tile.height }}
-        />
-      ))}
-    </div>
-  )
-}
-
-/** The hero photos. They float gently, and one at a time shows a card with its competence and rating. */
-function HeroPortraits() {
-  const active = useSpotlight(heroPortraits.length)
-  return (
-    <div className="hidden xl:block" aria-hidden>
-      {heroPortraits.map((portrait, index) => (
-        <FloatingPortrait
-          key={portrait.left}
-          src={portrait.src}
-          competence={portrait.competence}
-          name={portrait.name}
-          rating={portrait.rating}
-          side={portrait.side}
-          cardAbove={portrait.cardAbove}
-          active={active === index}
-          floatDistance={portrait.floatDistance}
-          floatDuration={portrait.floatDuration}
-          floatDelay={portrait.floatDelay}
-          className="absolute"
-          style={{ left: portrait.left, top: portrait.top, width: portrait.width, height: portrait.height }}
         />
       ))}
     </div>
@@ -134,8 +86,7 @@ export function Landing() {
           }
         />
 
-        <section className="relative flex h-165 flex-col items-center justify-center gap-4 overflow-clip pt-35 pb-40">
-          <HeroPortraits />
+        <HeroScene>
           <div className="relative flex flex-col items-center gap-10 px-6">
             <div className="flex flex-col items-center gap-10 text-center">
               <h1 className="type-display-hero max-w-163.5 text-neutral-black max-sm:text-[40px]!">Smart connections that move people forward</h1>
@@ -148,7 +99,8 @@ export function Landing() {
               Get started
             </ButtonLink>
           </div>
-        </section>
+        
+        </HeroScene>
       </div>
 
       <section id="how-it-works" className="flex flex-col gap-15 rounded-sm bg-bg-subtle p-7.5 lg:flex-row">
