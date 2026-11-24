@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { portraits } from '../../assets/people'
 import { FloatingPortrait } from '../../components/ui/FloatingPortrait'
-import { useSpotlight } from '../../hooks/useSpotlight'
 
 /** Positions below are in px on the design's 1400 x 660 hero. */
 const HERO_WIDTH = 1400
@@ -21,11 +20,6 @@ interface HeroPhoto {
   id: string
   wave: Wave
   src: string
-  competence: string
-  name: string
-  rating: number
-  side: 'left' | 'right'
-  cardAbove?: boolean
   floatDistance: number
   floatDuration: number
   floatDelay: number
@@ -38,12 +32,12 @@ interface HeroPhoto {
 }
 
 const people = {
-  tie: { src: portraits[3], competence: 'Change Management', name: 'Michael B.', rating: 4.8 },
-  elder: { src: portraits[1], competence: 'Leadership Coaching', name: 'Kenji T.', rating: 5.0 },
-  mustard: { src: portraits[4], competence: 'Public Financial Management', name: 'Joan P.', rating: 4.9 },
-  earrings: { src: portraits[0], competence: 'Digital Transformation', name: 'Naledi D.', rating: 5.0 },
-  grey: { src: portraits[2], competence: 'Agile Delivery', name: 'Daniel O.', rating: 4.7 },
-  brunette: { src: portraits[5], competence: 'Customer Experience', name: 'Elena R.', rating: 4.9 },
+  tie: portraits[3],
+  elder: portraits[1],
+  mustard: portraits[4],
+  earrings: portraits[0],
+  grey: portraits[2],
+  brunette: portraits[5],
 }
 
 /** A background starting point for wave 3: smaller, and pulled toward the middle of the hero. */
@@ -59,30 +53,30 @@ const float = (distance: number, duration: number, delay: number) => ({ floatDis
 
 const photos: HeroPhoto[] = [
   // Wave 1: two large photos, sharp from the start.
-  { id: 'w1-tie', wave: 1, ...people.tie, side: 'right', ...float(8, 6, 0), rest: { x: 56, y: 162, w: 273, h: 330 }, fly: { dx: -470, dy: 90, scale: 1.7 } },
-  { id: 'w1-elder', wave: 1, ...people.elder, side: 'left', ...float(10, 7, -2), rest: { x: 1066, y: 67, w: 287, h: 325 }, fly: { dx: 470, dy: -80, scale: 1.7 } },
+  { id: 'w1-tie', wave: 1, src: people.tie, ...float(8, 6, 0), rest: { x: 56, y: 162, w: 273, h: 330 }, fly: { dx: -470, dy: 90, scale: 1.7 } },
+  { id: 'w1-elder', wave: 1, src: people.elder, ...float(10, 7, -2), rest: { x: 1066, y: 67, w: 287, h: 325 }, fly: { dx: 470, dy: -80, scale: 1.7 } },
 
   // Wave 2: three faint photos in the background that come forward.
   {
-    id: 'w2-mustard', wave: 2, ...people.mustard, side: 'right', ...float(9, 6.5, -1),
+    id: 'w2-mustard', wave: 2, src: people.mustard, ...float(9, 6.5, -1),
     rest: { x: 70, y: 90, w: 250, h: 283 }, ghost: { x: 254, y: 55, w: 114, h: 129, blur: 0 }, fly: { dx: -430, dy: -90, scale: 1.7 },
   },
   {
-    id: 'w2-earrings', wave: 2, ...people.earrings, side: 'left', cardAbove: true, ...float(8, 7.5, -3),
+    id: 'w2-earrings', wave: 2, src: people.earrings, ...float(8, 7.5, -3),
     rest: { x: 190, y: 430, w: 180, h: 203 }, ghost: { x: 412, y: 509, w: 87, h: 98, blur: 0 }, fly: { dx: -440, dy: 110, scale: 1.7 },
   },
   {
-    id: 'w2-grey', wave: 2, ...people.grey, side: 'left', ...float(10, 6, -5),
+    id: 'w2-grey', wave: 2, src: people.grey, ...float(10, 6, -5),
     rest: { x: 1070, y: 170, w: 260, h: 294 }, ghost: { x: 980, y: 408, w: 116, h: 131, blur: 2 }, fly: { dx: 450, dy: 20, scale: 1.7 },
   },
 
   // Wave 3: the six small, scattered portraits.
-  { id: 'w3-mustard', wave: 3, ...people.mustard, side: 'right', ...float(8, 6, 0), rest: { x: 98, y: 31, w: 144, h: 163 } },
-  { id: 'w3-elder', wave: 3, ...people.elder, side: 'left', ...float(10, 7, -2), rest: { x: 1158, y: 0, w: 144, h: 163 } },
-  { id: 'w3-earrings', wave: 3, ...people.earrings, side: 'left', ...float(7, 5.5, -4), rest: { x: 1230, y: 257, w: 144, h: 163 } },
-  { id: 'w3-tie', wave: 3, ...people.tie, side: 'right', ...float(10, 6, -5), rest: { x: 26, y: 308, w: 144, h: 163 } },
-  { id: 'w3-brunette', wave: 3, ...people.brunette, side: 'right', cardAbove: true, ...float(8, 7.5, -3), rest: { x: 242, y: 497, w: 144, h: 163 } },
-  { id: 'w3-grey', wave: 3, ...people.grey, side: 'left', cardAbove: true, ...float(9, 6.5, -1), rest: { x: 1081, y: 475, w: 144, h: 163 } },
+  { id: 'w3-mustard', wave: 3, src: people.mustard, ...float(8, 6, 0), rest: { x: 98, y: 31, w: 144, h: 163 } },
+  { id: 'w3-elder', wave: 3, src: people.elder, ...float(10, 7, -2), rest: { x: 1158, y: 0, w: 144, h: 163 } },
+  { id: 'w3-earrings', wave: 3, src: people.earrings, ...float(7, 5.5, -4), rest: { x: 1230, y: 257, w: 144, h: 163 } },
+  { id: 'w3-tie', wave: 3, src: people.tie, ...float(10, 6, -5), rest: { x: 26, y: 308, w: 144, h: 163 } },
+  { id: 'w3-brunette', wave: 3, src: people.brunette, ...float(8, 7.5, -3), rest: { x: 242, y: 497, w: 144, h: 163 } },
+  { id: 'w3-grey', wave: 3, src: people.grey, ...float(9, 6.5, -1), rest: { x: 1081, y: 475, w: 144, h: 163 } },
 ].map((photo) => (photo.wave === 3 ? { ...photo, ghost: backgroundOf(photo.rest) } : photo)) as HeroPhoto[]
 
 type Span = [number, number]
@@ -155,16 +149,6 @@ function poseAt(photo: HeroPhoto, p: number): Pose {
   return { x, y, scale, opacity, blur, visible: leave < 1 && present > 0 }
 }
 
-type Phase = Wave | 'between'
-
-/** Which wave, if any, is sitting at rest at this scroll position. */
-function phaseAt(p: number): Phase {
-  if (p <= TIMELINE[1].exit![0] - 0.01) return 1
-  if (p >= TIMELINE[2].enter![1] && p <= TIMELINE[2].exit![0]) return 2
-  if (p >= TIMELINE[3].enter![1]) return 3
-  return 'between'
-}
-
 export interface HeroSceneProps {
   /** The headline, text and button, shown in the middle. */
   children: ReactNode
@@ -180,13 +164,11 @@ export function HeroScene({ children }: HeroSceneProps) {
   const outerRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLElement>(null)
   const layers = useRef(new Map<string, HTMLDivElement>())
-  const [phase, setPhase] = useState<Phase>(1)
 
   useEffect(() => {
     const wide = window.matchMedia('(min-width: 1280px)')
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     let frame = 0
-    let lastPhase: Phase = 1
 
     const apply = (p: number) => {
       for (const photo of photos) {
@@ -197,11 +179,6 @@ export function HeroScene({ children }: HeroSceneProps) {
         layer.style.transform = `translate3d(${pose.x.toFixed(1)}px, ${pose.y.toFixed(1)}px, 0) scale(${pose.scale.toFixed(4)})`
         layer.style.opacity = pose.opacity >= 0.999 ? '' : pose.opacity.toFixed(3)
         layer.style.filter = pose.blur > 0.05 ? `blur(${pose.blur.toFixed(2)}px)` : ''
-      }
-      const next = phaseAt(p)
-      if (next !== lastPhase) {
-        lastPhase = next
-        setPhase(next)
       }
     }
 
@@ -236,10 +213,6 @@ export function HeroScene({ children }: HeroSceneProps) {
     }
   }, [])
 
-  const settled = phase === 'between' ? [] : photos.filter((photo) => photo.wave === phase)
-  const spotlight = useSpotlight(settled.length)
-  const activeId = spotlight === null ? null : settled[spotlight]?.id
-
   return (
     <div ref={outerRef} style={{ ['--pin' as string]: `${PIN_DISTANCE_VH}vh` }} className="motion-safe:xl:h-[calc(660px+var(--pin))]">
       <section
@@ -266,12 +239,6 @@ export function HeroScene({ children }: HeroSceneProps) {
             >
               <FloatingPortrait
                 src={photo.src}
-                competence={photo.competence}
-                name={photo.name}
-                rating={photo.rating}
-                side={photo.side}
-                cardAbove={photo.cardAbove}
-                active={activeId === photo.id}
                 floatDistance={photo.floatDistance}
                 floatDuration={photo.floatDuration}
                 floatDelay={photo.floatDelay}
