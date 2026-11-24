@@ -7,14 +7,17 @@ import { Footer } from '../components/ui/Footer'
 import type { FooterColumn } from '../components/ui/Footer'
 import { Navigation, NavigationItem } from '../components/ui/Navigation'
 import { PageHeader } from '../components/ui/PageHeader'
-import { StepItem } from '../components/ui/StepItem'
 import { TestimonialCard } from '../components/ui/TestimonialCard'
 import { HeroScene } from './landing/HeroScene'
+import { DotsPanel, GridPanel, MintSymbolPanel, StripesPanel } from './landing/StepPanels'
+import { StepsShowcase } from './landing/StepsShowcase'
 import {
   SecureWorkflowIllustration,
   SmartMatchingIllustration,
   TrustedNetworkIllustration,
 } from './landing/Illustrations'
+
+const SymbolPanel = () => <BrandPanel className="size-full" />
 
 const scrollTo = (id: string) => (event: React.MouseEvent) => {
   event.preventDefault()
@@ -103,30 +106,25 @@ export function Landing() {
         </HeroScene>
       </div>
 
-      <section id="how-it-works" className="flex flex-col gap-15 rounded-sm bg-bg-subtle p-7.5 lg:flex-row">
-        <BrandPanel className="min-h-100 w-full rounded-sm lg:min-h-0 lg:w-154.75 lg:shrink-0" />
-        <div className="flex min-w-0 flex-1 flex-col justify-between gap-16">
-          <div className="flex flex-col gap-5">
-            <h2 className="type-display-title text-text-primary max-sm:text-[32px]!">
-              Your Secure, All-in-One Training Marketplace
-            </h2>
-            <p className="type-body-xl max-w-137.5 text-gray-500">
-              Connect with top independent trainers and facilitators. Post or apply for training jobs, collaborate with
-              verified experts, manage training projects end-to-end, and handle secure payments—all in one seamless
-              platform.
-            </p>
-          </div>
-          <ol className="flex list-none flex-col gap-5">
-            <StepItem step={1}>Browse training jobs or facilitators.</StepItem>
-            <StepItem step={2}>Submit applications or send offers.</StepItem>
-            <StepItem step={3} active>
-              Review terms, negotiate scope, and formalize contracts.
-            </StepItem>
-            <StepItem step={4}>Work together and deliver the training.</StepItem>
-            <StepItem step={5}>Confirm completion and release secure payment.</StepItem>
-          </ol>
-        </div>
-      </section>
+      <StepsShowcase
+        id="how-it-works"
+        title={
+          <>
+            Your Secure, All-in-One
+            <br />
+            Training Marketplace
+          </>
+        }
+        description="Connect with top independent trainers and facilitators. Post or apply for training jobs, collaborate with verified experts, manage training projects end-to-end, and handle secure payments—all in one seamless platform."
+        steps={[
+          'Browse training jobs or facilitators.',
+          'Submit applications or send offers.',
+          'Review terms, negotiate scope, and formalize contracts.',
+          'Work together and deliver the training.',
+          'Confirm completion and release secure payment.',
+        ]}
+        images={[SymbolPanel, GridPanel, StripesPanel, DotsPanel, MintSymbolPanel]}
+      />
 
       <section id="about" className="flex flex-col gap-10 px-0 lg:px-7.5">
         <div className="flex flex-wrap items-center justify-between gap-6">

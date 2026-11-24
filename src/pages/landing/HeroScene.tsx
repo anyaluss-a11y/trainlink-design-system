@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import type { ReactNode } from 'react'
 import { portraits } from '../../assets/people'
 import { FloatingPortrait } from '../../components/ui/FloatingPortrait'
+import { usePinnedProgress } from '../../hooks/usePinnedProgress'
 
 /** Positions below are in px on the design's 1400 x 660 hero. */
 const HERO_WIDTH = 1400
@@ -161,57 +162,19 @@ export interface HeroSceneProps {
  * and shows the first stage.
  */
 export function HeroScene({ children }: HeroSceneProps) {
-  const outerRef = useRef<HTMLDivElement>(null)
-  const innerRef = useRef<HTMLElement>(null)
   const layers = useRef(new Map<string, HTMLDivElement>())
-
-  useEffect(() => {
-    const wide = window.matchMedia('(min-width: 1280px)')
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let frame = 0
-
-    const apply = (p: number) => {
-      for (const photo of photos) {
-        const layer = layers.current.get(photo.id)
-        if (!layer) continue
-        const pose = poseAt(photo, p)
-        layer.style.visibility = pose.visible ? 'visible' : 'hidden'
-        layer.style.transform = `translate3d(${pose.x.toFixed(1)}px, ${pose.y.toFixed(1)}px, 0) scale(${pose.scale.toFixed(4)})`
-        layer.style.opacity = pose.opacity >= 0.999 ? '' : pose.opacity.toFixed(3)
-        layer.style.filter = pose.blur > 0.05 ? `blur(${pose.blur.toFixed(2)}px)` : ''
-      }
+  const { outerRef, innerRef } = usePinnedProgress((p) => {
+    for (const photo of photos) {
+      const layer = layers.current.get(photo.id)
+      if (!layer) continue
+      const pose = poseAt(photo, p)
+      layer.style.visibility = pose.visible ? 'visible' : 'hidden'
+      layer.style.transform = `translate3d(${pose.x.toFixed(1)}px, ${pose.y.toFixed(1)}px, 0) scale(${pose.scale.toFixed(4)})`
+      layer.style.opacity = pose.opacity >= 0.999 ? '' : pose.opacity.toFixed(3)
+      layer.style.filter = pose.blur > 0.05 ? `blur(${pose.blur.toFixed(2)}px)` : ''
     }
+  })
 
-    const update = () => {
-      frame = 0
-      const outer = outerRef.current
-      const inner = innerRef.current
-      let p = 0
-      if (outer && inner && wide.matches && !reduced.matches) {
-        const rect = outer.getBoundingClientRect()
-        const distance = rect.height - inner.offsetHeight
-        const top = parseFloat(getComputedStyle(inner).top) || 0
-        p = distance > 0 ? clamp01((top - rect.top) / distance) : 0
-      }
-      apply(p)
-    }
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-
-    update()
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    wide.addEventListener('change', schedule)
-    reduced.addEventListener('change', schedule)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-      wide.removeEventListener('change', schedule)
-      reduced.removeEventListener('change', schedule)
-    }
-  }, [])
 
   return (
     <div ref={outerRef} style={{ ['--pin' as string]: `${PIN_DISTANCE_VH}vh` }} className="motion-safe:xl:h-[calc(660px+var(--pin))]">
