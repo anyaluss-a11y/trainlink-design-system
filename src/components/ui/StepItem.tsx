@@ -14,19 +14,19 @@ export interface StepItemProps extends HTMLAttributes<HTMLLIElement> {
 export function StepItem({ step, active = false, dimmed = false, className, children, ...props }: StepItemProps) {
   return (
     <li
-      className={cn('flex items-center gap-2 transition-opacity duration-500', dimmed && 'opacity-50', className)}
+      className={cn('flex items-center gap-2 transition-opacity duration-700', dimmed && 'opacity-50', className)}
       aria-current={active ? 'step' : undefined}
       {...props}
     >
       <span
         className={cn(
-          'type-body-sm-bold inline-flex min-w-11 shrink-0 items-center justify-center rounded-full border px-3 py-px text-text-primary transition-colors duration-500',
+          'type-body-sm-bold inline-flex min-w-11 shrink-0 items-center justify-center rounded-full border px-3 py-px text-text-primary transition-colors duration-700',
           active ? 'border-green-60 bg-green-60' : 'border-gray-400 bg-transparent',
         )}
       >
         Step {step}
       </span>
-      <span className={cn('type-body-xl min-w-0 leading-8! text-text-primary transition-[font-weight] duration-500', active && 'font-semibold!')}>
+      <span className={cn('type-body-xl min-w-0 leading-8! text-text-primary transition-[font-weight] duration-700', active && 'font-semibold!')}>
         {children}
       </span>
     </li>

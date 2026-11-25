@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { ComponentType, ReactNode } from 'react'
 import { StepItem } from '../../components/ui/StepItem'
 import { usePinnedProgress } from '../../hooks/usePinnedProgress'
 import { cn } from '../../lib/cn'
 
 /** Scroll distance per step while the section is pinned, as a share of the viewport height. */
-const VH_PER_STEP = 40
+const VH_PER_STEP = 70
 /**
  * Height of the section on wide screens: the viewport minus the 20px page gutter above and below, so the pinned
  * section fills the screen exactly. It never gets shorter than the steps need.
@@ -23,7 +23,7 @@ export interface StepsShowcaseProps {
 
 /**
  * Steps beside a large picture. On wide screens the section is as tall as the viewport and pins while you scroll: each step lights up in turn and
- * the picture changes with it. On narrow screens, or with reduced motion, nothing is pinned, no step is dimmed,
+ * one picture dissolves into the next. On narrow screens, or with reduced motion, nothing is pinned, no step is dimmed,
  * and the first picture is shown.
  */
 export function StepsShowcase({ id, title, description, steps, images }: StepsShowcaseProps) {
@@ -33,14 +33,36 @@ export function StepsShowcase({ id, title, description, steps, images }: StepsSh
     setActive((current) => (current === next ? current : next))
   })
   const shown = active ?? 0
+  const isPinned = active !== null
+
+  // While pinned, let scrolling settle gently on each step. "proximity" only catches you when you stop close to one.
+  useEffect(() => {
+    if (!isPinned) return
+    const root = document.documentElement
+    const previous = root.style.scrollSnapType
+    root.style.scrollSnapType = 'y proximity'
+    return () => {
+      root.style.scrollSnapType = previous
+    }
+  }, [isPinned])
 
   return (
     <div
       ref={outerRef}
       id={id}
       style={{ ['--pin' as string]: `${steps.length * VH_PER_STEP}vh`, ['--section' as string]: SECTION_HEIGHT }}
-      className="motion-safe:xl:h-[calc(var(--section)+var(--pin))]"
+      className="relative motion-safe:xl:h-[calc(var(--section)+var(--pin))]"
     >
+      {isPinned &&
+        steps.map((step, index) => (
+          // Invisible resting points, one in the middle of each step's stretch of scroll.
+          <span
+            key={step}
+            aria-hidden
+            className="pointer-events-none absolute left-0 size-px snap-start scroll-mt-5"
+            style={{ top: `${(index + 0.5) * VH_PER_STEP}vh` }}
+          />
+        ))}
       <section
         ref={innerRef}
         className="flex flex-col gap-15 rounded-sm bg-bg-subtle p-7.5 lg:flex-row lg:p-15 xl:h-(--section) motion-safe:xl:sticky motion-safe:xl:top-5"
@@ -50,8 +72,9 @@ export function StepsShowcase({ id, title, description, steps, images }: StepsSh
             <div
               key={index}
               className={cn(
-                'absolute inset-0 transition-[opacity,scale] duration-700 ease-out motion-reduce:transition-none',
-                index === shown ? 'scale-100 opacity-100' : 'scale-105 opacity-0',
+                // Earlier pictures stay solid underneath, so the next one dissolves over them with no dip to the background.
+                'absolute inset-0 transition-opacity duration-[1200ms] ease-in-out motion-reduce:transition-none',
+                index <= shown ? 'opacity-100' : 'opacity-0',
               )}
             >
               <Image />
