@@ -6,8 +6,11 @@ import { cn } from '../../lib/cn'
 
 /** Scroll distance per step while the section is pinned, as a share of the viewport height. */
 const VH_PER_STEP = 40
-/** Height of the section on wide screens, in px: 675 for the picture plus 60 of padding above and below. */
-const SECTION_HEIGHT = 795
+/**
+ * Height of the section on wide screens: the viewport minus the 20px page gutter above and below, so the pinned
+ * section fills the screen exactly. It never gets shorter than the steps need.
+ */
+const SECTION_HEIGHT = 'max(40rem, calc(100svh - 40px))'
 
 export interface StepsShowcaseProps {
   id?: string
@@ -19,7 +22,7 @@ export interface StepsShowcaseProps {
 }
 
 /**
- * Steps beside a large picture. On wide screens the section pins while you scroll: each step lights up in turn and
+ * Steps beside a large picture. On wide screens the section is as tall as the viewport and pins while you scroll: each step lights up in turn and
  * the picture changes with it. On narrow screens, or with reduced motion, nothing is pinned, no step is dimmed,
  * and the first picture is shown.
  */
@@ -35,14 +38,14 @@ export function StepsShowcase({ id, title, description, steps, images }: StepsSh
     <div
       ref={outerRef}
       id={id}
-      style={{ ['--pin' as string]: `${steps.length * VH_PER_STEP}vh`, ['--section' as string]: `${SECTION_HEIGHT}px` }}
+      style={{ ['--pin' as string]: `${steps.length * VH_PER_STEP}vh`, ['--section' as string]: SECTION_HEIGHT }}
       className="motion-safe:xl:h-[calc(var(--section)+var(--pin))]"
     >
       <section
         ref={innerRef}
         className="flex flex-col gap-15 rounded-sm bg-bg-subtle p-7.5 lg:flex-row lg:p-15 xl:h-(--section) motion-safe:xl:sticky motion-safe:xl:top-5"
       >
-        <div aria-hidden className="relative h-100 w-full shrink-0 overflow-hidden rounded-sm lg:h-168.75 lg:w-126.25">
+        <div aria-hidden className="relative h-100 w-full shrink-0 overflow-hidden rounded-sm lg:h-auto lg:w-[min(31.5625rem,40%)]">
           {images.map((Image, index) => (
             <div
               key={index}
